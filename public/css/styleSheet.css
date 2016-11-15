@@ -1,0 +1,26 @@
+.shapes{
+	stroke-width:2;
+	fill: none;
+	display: inline-block;
+	padding: 10px;
+}
+
+.line{
+	stroke: grey;
+	margin: 25px;
+}
+
+.circle{
+	stroke: red;
+	margin: 25px;
+}
+
+.square{
+	stroke: blue;
+	margin: 25px;
+}
+
+.triangle{
+	stroke: green;
+	margin: 25px;
+}
