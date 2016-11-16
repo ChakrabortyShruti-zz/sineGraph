@@ -54,29 +54,26 @@ var drawLineGraph = function(){
 	graph.append('path').classed('sin',true).attr('d',sinPath(generateSineValues()));
 }
 
+var createCircle = function(selection,dataSet,offsetY){
+	selection
+		.append('g')
+		.selectAll('circle')
+		.data(dataSet)
+		.enter()
+		.append('circle')
+		.attr('cx',function(d){return _xScale(d.x/10)})
+		.attr('cy',function(d){return _yScale((offsetY+d.y)/10)})
+		.attr('r',5);
+}
+
 var drawScatterPlot = function(){
 	var circle = d3.select('svg')
 		.classed('hollow-circle',true)
 		.append('g')
 		.attr('transform', 'translate('+MARGIN+', '+MARGIN+')');
 
-	circle.append('g')
-		.selectAll('circle')
-		.data(setOfPoints)
-		.enter()
-		.append('circle')
-		.attr('cx',function(d){return _xScale(d.x/10)})
-		.attr('cy',function(d){return _yScale(d.y/10)})
-		.attr('r',5);
-
-	circle.append('g')
-		.selectAll('circle')
-		.data(generateSineValues())
-		.enter()
-		.append('circle')
-		.attr('cx',function(d){return _xScale(d.x/10)})
-		.attr('cy',function(d){return _yScale((5+d.y)/10)})
-		.attr('r',5)
+	createCircle(circle,setOfPoints,0);
+	createCircle(circle,generateSineValues(),5);
 }
 
 window.onload = function(){
