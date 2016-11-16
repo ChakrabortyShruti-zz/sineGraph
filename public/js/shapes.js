@@ -40,3 +40,7 @@ window.onload = function(){
 	drawShape('square','rect',square);
 	drawShape('triangle','polygon',triangle);
 }
+// {line: {x1:0,y1:100,x2:100,y2:0},svgElement:'line'}
+// {circle : {cx:50,cy:50,r:50},svgElement: 'circle'}
+// {square : {width:100,height:100},svgElement : 'rect'}
+// {triangle : {points:'0,100 100,100 50,0'},svgElement: 'polygon'}
