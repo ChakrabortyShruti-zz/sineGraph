@@ -1,11 +1,19 @@
 .LineGraph{
-	fill:none;
 	stroke: steelblue;
 	stroke-width: 2; 
+}
+
+.AreaGraph{
+	fill:lightsteelblue;
+	fill-opacity:0.5;
 }
 
 .ScatterPlot{
 	fill: white;
 	stroke-width: 1; 
 	stroke: steelblue;
+}
+
+.graphs {
+	fill: none;
 }

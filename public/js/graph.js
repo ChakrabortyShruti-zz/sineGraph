@@ -39,18 +39,19 @@ var createSvg = function(counter){
 		.attr('transform', 'translate('+MARGIN+', '+MARGIN+')');
 }
 
-var createCircle = function(selection,dataSet,offsetY){
-	selection.append('g')
-		.selectAll('circle')
-		.data(dataSet)
-		.enter()
-		.append('circle')
-		.attr('cx',function(d){return _xScale(d.x/10)})
-		.attr('cy',function(d){return _yScale((offsetY+d.y)/10)})
-		.attr('r',5);
-}
+// var createCircle = function(selection,dataSet,offsetY){
+// 	selection.append('g')
+// 		.selectAll('circle')
+// 		.data(dataSet)
+// 		.enter()
+// 		.append('circle')
+// 		.attr('cx',function(d){return _xScale(d.x/10)})
+// 		.attr('cy',function(d){return _yScale((offsetY+d.y)/10)})
+// 		.attr('r',5);
+// }
 
 var drawGraph = function(className,offset,dataSet,interpolator){
+	d3.select('.graphs g').remove();
 	var graph = _svg
 		.append('g')
 		.classed(className,true);
@@ -81,7 +82,7 @@ var drawGraph = function(className,offset,dataSet,interpolator){
 }
 
 var createAllCharts = function(interpolator){
-	_svg.exit().remove();
+	// _svg.exit().remove();
 	drawGraph('point',0,setOfPoints,interpolator);
 	drawGraph('sin',5,generateSineValues(),interpolator);
 }

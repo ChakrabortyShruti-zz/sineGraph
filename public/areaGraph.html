@@ -8,5 +8,10 @@
 </head>
 <body>
 	<script type="text/javascript" src="./js/areaGraph.js"></script>
+	<button onclick="drawGraph(d3.curveLinearClosed)"> LinearClosed</button>
+	<button onclick="drawGraph(d3.curveStepAfter)"> Step</button>
+	<button onclick="drawGraph(d3.curveBasisOpen)"> CurveBasisOpen</button>
+	<button onclick="drawGraph(d3.curveCardinalClosed)"> CardinalClose</button>
+	<button onclick="drawGraph(d3.curveBundle.beta(1))"> Cardinal</button>
 </body>
 </html>
