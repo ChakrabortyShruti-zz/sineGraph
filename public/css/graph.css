@@ -1,0 +1,23 @@
+.pointLineGraph{
+	fill: none;
+	stroke: red;
+	stroke-width:2;
+}
+
+.pointScatterPlot{
+	fill: white;
+	stroke: red;
+	stroke-width:1;
+}
+
+.sinLineGraph{
+	fill: none;
+	stroke-width:2;
+	stroke: steelblue;
+}
+
+.sinScatterPlot{
+	fill: white;
+	stroke: steelblue;
+	stroke-width:1;
+}

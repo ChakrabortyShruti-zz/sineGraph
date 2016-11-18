@@ -25,14 +25,3 @@
 	margin: 25px;
 }
 
-.graph{
-	fill: none;
-	stroke: steelblue;
-	stroke-width:2;
-}
-
-.hollow-circle{
-	fill: white;
-	stroke: steelblue;
-	stroke-width:1;
-}

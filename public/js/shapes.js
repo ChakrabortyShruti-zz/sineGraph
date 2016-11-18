@@ -26,6 +26,7 @@ var drawShape = function(className,svgElement,shapeAttributes){
 		.classed(className,true)
 		.append(svgElement);
 
+	
 	var keys = Object.keys(shapeAttributes);
 	keys.forEach(function(d){
 		shape.attr(d,shapeAttributes[d]);
@@ -39,6 +40,7 @@ window.onload = function(){
 	drawShape('circle','circle',circle);
 	drawShape('square','rect',square);
 	drawShape('triangle','polygon',triangle);
+
 }
 // {line: {x1:0,y1:100,x2:100,y2:0},svgElement:'line'}
 // {circle : {cx:50,cy:50,r:50},svgElement: 'circle'}

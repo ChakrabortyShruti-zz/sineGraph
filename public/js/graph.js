@@ -14,10 +14,9 @@ var generateSineValues = function(){
 	return sineValues;
 }
 
-var createSvg = function(){
+var createSvg = function(counter){
 	d3.select('body')
 		.append('svg')
-		// .classed('graph',true)
 		.attr('width',WIDTH)
 		.attr('height',HEIGHT);
 
@@ -35,28 +34,13 @@ var createSvg = function(){
 		.append('g')
 		.attr('transform', 'translate('+MARGIN+','+MARGIN+')')
 		.call(yAxis);
-}
 
-var drawLineGraph = function(){
-	var graph = d3.select('svg')
-		.append('g')
-		.classed('graph',true)
+	_svg = d3.select('svg').append('g').classed('graphs',true)
 		.attr('transform', 'translate('+MARGIN+', '+MARGIN+')');
-
-	var pointPath = d3.line()
-		.x(function(d){ return _xScale(d.x/10)})
-		.y(function(d){ return _yScale(d.y/10)});
-	graph.append('path').classed('point',true).attr('d',pointPath(setOfPoints));
-
-	var sinPath = d3.line()
-		.x(function(d){ return _xScale(d.x/10)})
-		.y(function(d){ return _yScale((5+d.y)/10)});
-	graph.append('path').classed('sin',true).attr('d',sinPath(generateSineValues()));
 }
 
 var createCircle = function(selection,dataSet,offsetY){
-	selection
-		.append('g')
+	selection.append('g')
 		.selectAll('circle')
 		.data(dataSet)
 		.enter()
@@ -66,18 +50,57 @@ var createCircle = function(selection,dataSet,offsetY){
 		.attr('r',5);
 }
 
-var drawScatterPlot = function(){
-	var circle = d3.select('svg')
-		.classed('hollow-circle',true)
+var drawGraph = function(className,offset,dataSet,interpolator){
+	var graph = _svg
 		.append('g')
-		.attr('transform', 'translate('+MARGIN+', '+MARGIN+')');
+		.classed(className,true);
 
-	createCircle(circle,setOfPoints,0);
-	createCircle(circle,generateSineValues(),5);
+	var pointPath = d3.line()
+		.x(function(d){ return _xScale(d.x/10)})
+		.y(function(d){ return _yScale((offset+d.y)/10)})
+		.curve(interpolator);
+
+	graph.append('g')
+		.classed(className+'LineGraph',true)
+		.append('path')
+		.attr('d',pointPath(dataSet));
+
+	var circle = graph
+		.append('g')
+		.classed(className+'ScatterPlot',true)
+		.append('g')
+		.selectAll('circle')
+		.data(dataSet);
+
+	circle.enter()
+		.append('circle')
+		.attr('cx',function(d){return _xScale(d.x/10)})
+		.attr('cy',function(d){return _yScale((offset+d.y)/10)})
+		.attr('r',5);
+
+}
+
+var createAllCharts = function(interpolator){
+	_svg.exit().remove();
+	drawGraph('point',0,setOfPoints,interpolator);
+	drawGraph('sin',5,generateSineValues(),interpolator);
 }
 
 window.onload = function(){
 	createSvg();
-	drawLineGraph();
-	drawScatterPlot();
+	// drawGraph('point',0,setOfPoints);
+	// drawGraph('sin',5,generateSineValues());
+	// createAllCharts(d3.curveStep);
+	createAllCharts(d3.curveCardinal.tension(1));
+	// _svg.remove().exit();
+
 }
+
+//0--d3.curveCardinal.tension(1)
+//1--d3.curveLinearClosed
+//2--d3.curveStep
+//3--d3.curveBasis
+//4--d3.curveBundle.beta(0.75)
+//5--d3.curveCardinalClosed
+//6--d3.curveCardinal
+//7--d3.curveMonotoneX

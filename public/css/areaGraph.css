@@ -1,0 +1,11 @@
+.LineGraph{
+	fill:none;
+	stroke: steelblue;
+	stroke-width: 2; 
+}
+
+.ScatterPlot{
+	fill: white;
+	stroke-width: 1; 
+	stroke: steelblue;
+}
