@@ -40,6 +40,8 @@ var createChart = function(){
 
 var loadBarChart = function(data,color){
 	d3.select('.rect').remove();
+	d3.select('.addedRect').remove();
+	
 
 	var rect = d3.select('.graph')
 		.selectAll('rect')
@@ -72,47 +74,52 @@ var addText = function(functionName, evaluateFunc){
 	d3.select('.graph')
 		.append('text')
 		.attr('x','220')
-		.attr('y','30')
+		.attr('y','<3></3>0')
 		.text(functionName+' = '+Math.round(evaluateFunc(numbers)));
 }
 
 var sum = function(){
 	loadBarChart(numbers,'steelblue');
-	d3.select('.graph text').remove()
+	d3.select('.graph text').remove();
 	addText('sum',d3.sum);
 }
 
 var addExtraBar = function(evaluateFunc,color){
 	d3.select('.graph')
 		.append('rect')
+		.classed('addedRect',true)
 		.attr('x', '243')
       	.attr('width',INNER_WIDTH/(10*2))
-      	.attr('y', _yScale(evaluateFunc(numbers)))
+      	.attr('y', function(){return _yScale(evaluateFunc(numbers))})
       	.attr('height', INNER_HEIGHT-_yScale(evaluateFunc(numbers)))
       	.style('fill',color);
 }
 
 var mean = function(){
+	d3.select('.addedRect').remove();
 	addExtraBar(d3.mean,'darkblue');
 	d3.select('.graph text').remove();
     addText('mean',d3.mean);
 }
 
 var median = function(){
+	d3.select('.addedRect').remove();
 	addExtraBar(d3.median,'deepblue');
-	d3.select('.graph text').remove()
+	d3.select('.graph text').remove();
 	addText('median',d3.median);
 }
 
 var variance = function(){
+	d3.select('.addedRect').remove();
 	addExtraBar(d3.variance,'deepblue');
-	d3.select('.graph text').remove()
+	d3.select('.graph text').remove();
 	addText('variance',d3.variance);
 }
 
 var deviation = function(){
+	d3.select('.addedRect').remove();
 	addExtraBar(d3.deviation,'deepblue');
-	d3.select('.graph text').remove()
+	d3.select('.graph text').remove();
 	addText('deviation',d3.deviation);
 }
 
