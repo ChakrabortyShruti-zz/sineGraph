@@ -38,33 +38,44 @@ var createChart = function(){
 		.classed('graph',true)
 }
 
-var loadBarChart = function(data){
+var loadBarChart = function(data,color){
 	var rect = d3.select('.graph')
 		.selectAll('rect')
 	    .data(data,function(d){return d});
 
   	rect.attr('class', 'update')
-  		.style('fill','steelblue');
+  		.style('fill',color);
 
   	rect.enter().append('rect')
       	.attr('class', 'enter')
-      	// .merge(rect)
       	.attr('x', function(d,i) {return _xScale(i)})
       	.attr('width',INNER_WIDTH/(10*2))
       	.attr('y', function(d){return _yScale(d)})
       	.attr('height',function(d){return INNER_HEIGHT-_yScale(d)})
       	.style('fill','lightsteelblue')
-      	
-  	d3.selectAll('rect').exit().remove();
+      	.merge(rect);
+
+    return rect;
 }
 
 var mediator = function(evaluate){
-  	d3.selectAll('rect').exit().remove();
-	loadBarChart([evaluate(numbers)])
-  	d3.selectAll('rect').exit().remove();
+	loadBarChart([evaluate(numbers)],'steelblue');
+}
+
+var extent = function(){
+	loadBarChart(d3.extent(numbers),'darkred');
+}
+
+var sum = function(){
+	loadBarChart(numbers,'steelblue');
+	d3.select('.graph')
+		.append('text')
+		.attr('x','220')
+		.attr('y','90')
+		.text('sum = '+d3.sum(numbers));
 }
 
 window.onload = function(){
 	createChart();
-	loadBarChart(numbers);
+	loadBarChart(numbers,'steelblue');
 }
