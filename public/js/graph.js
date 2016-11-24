@@ -37,21 +37,16 @@ var createSvg = function(counter){
 
 	_svg = d3.select('svg').append('g').classed('graphs',true)
 		.attr('transform', 'translate('+MARGIN+', '+MARGIN+')');
+
+	d3.select('select')
+		.selectAll('option')
+		.data(interpoletorNames)
+		.enter()
+		.append('option')
+		.text(function(d){return d});
 }
 
-// var createCircle = function(selection,dataSet,offsetY){
-// 	selection.append('g')
-// 		.selectAll('circle')
-// 		.data(dataSet)
-// 		.enter()
-// 		.append('circle')
-// 		.attr('cx',function(d){return _xScale(d.x/10)})
-// 		.attr('cy',function(d){return _yScale((offsetY+d.y)/10)})
-// 		.attr('r',5);
-// }
-
 var drawGraph = function(className,offset,dataSet,interpolator){
-	d3.select('.graphs g').remove();
 	var graph = _svg
 		.append('g')
 		.classed(className,true);
@@ -82,26 +77,30 @@ var drawGraph = function(className,offset,dataSet,interpolator){
 }
 
 var createAllCharts = function(interpolator){
-	// _svg.exit().remove();
+	d3.select('.graphs g').remove();
 	drawGraph('point',0,setOfPoints,interpolator);
 	drawGraph('sin',5,generateSineValues(),interpolator);
 }
 
+var interpoletors = { curveCardinal : d3.curveCardinal.tension(1),
+						curveLinearClosed : d3.curveLinearClosed,
+						curveStep : d3.curveStep,
+						curveBasis : d3.curveBasis,
+						curveBundle : d3.curveBundle.beta(0.75),
+						curveCardinalClosed : d3.curveCardinalClosed,
+						curveCardinal : d3.curveCardinal,
+						curveMonotoneX : d3.curveMonotoneX
+					};
+
+var interpoletorNames = Object.keys(interpoletors);
+
 window.onload = function(){
 	createSvg();
-	// drawGraph('point',0,setOfPoints);
-	// drawGraph('sin',5,generateSineValues());
-	// createAllCharts(d3.curveStep);
-	createAllCharts(d3.curveCardinal.tension(1));
-	// _svg.remove().exit();
-
+	d3.select('select')
+		.on('change',function(d){ 
+			var curveIndex = d3.select('select')
+				.property('selectedIndex');
+			return createAllCharts(interpoletors[interpoletorNames[curveIndex]])
+		}
+	);
 }
-
-//0--d3.curveCardinal.tension(1)
-//1--d3.curveLinearClosed
-//2--d3.curveStep
-//3--d3.curveBasis
-//4--d3.curveBundle.beta(0.75)
-//5--d3.curveCardinalClosed
-//6--d3.curveCardinal
-//7--d3.curveMonotoneX

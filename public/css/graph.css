@@ -1,19 +1,19 @@
 .pointLineGraph{
 	fill: none;
-	stroke: red;
+	stroke: darkred;
 	stroke-width:2;
 }
 
 .pointScatterPlot{
 	fill: white;
-	stroke: red;
+	stroke: steelblue;
 	stroke-width:1;
 }
 
 .sinLineGraph{
 	fill: none;
 	stroke-width:2;
-	stroke: steelblue;
+	stroke: darkblue;
 }
 
 .sinScatterPlot{
