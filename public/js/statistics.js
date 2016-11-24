@@ -39,6 +39,8 @@ var createChart = function(){
 }
 
 var loadBarChart = function(data,color){
+	d3.select('.rect').remove();
+
 	var rect = d3.select('.graph')
 		.selectAll('rect')
 	    .data(data,function(d){return d});
@@ -70,7 +72,7 @@ var addText = function(functionName, evaluateFunc){
 	d3.select('.graph')
 		.append('text')
 		.attr('x','220')
-		.attr('y','90')
+		.attr('y','30')
 		.text(functionName+' = '+Math.round(evaluateFunc(numbers)));
 }
 
@@ -85,8 +87,8 @@ var addExtraBar = function(evaluateFunc,color){
 		.append('rect')
 		.attr('x', '243')
       	.attr('width',INNER_WIDTH/(10*2))
-      	.attr('y', INNER_HEIGHT-_yScale(evaluateFunc(numbers)))
-      	.attr('height', _yScale(evaluateFunc(numbers)))
+      	.attr('y', _yScale(evaluateFunc(numbers)))
+      	.attr('height', INNER_HEIGHT-_yScale(evaluateFunc(numbers)))
       	.style('fill',color);
 }
 
