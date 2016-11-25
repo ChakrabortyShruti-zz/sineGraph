@@ -41,7 +41,7 @@ var createChart = function(){
 var loadBarChart = function(data,color){
 	d3.select('.rect').remove();
 	d3.select('.addedRect').remove();
-	
+
 
 	var rect = d3.select('.graph')
 		.selectAll('rect')
@@ -74,8 +74,8 @@ var addText = function(functionName, evaluateFunc){
 	d3.select('.graph')
 		.append('text')
 		.attr('x','220')
-		.attr('y','<3></3>0')
-		.text(functionName+' = '+Math.round(evaluateFunc(numbers)));
+		.attr('y','30')
+		.text(functionName+' = '+evaluateFunc(numbers).toFixed(2));
 }
 
 var sum = function(){
@@ -85,6 +85,8 @@ var sum = function(){
 }
 
 var addExtraBar = function(evaluateFunc,color){
+	d3.selectAll('.enter').style('fill'	,'lightsteelblue');
+	d3.selectAll('.update').style('fill','lightsteelblue');
 	d3.select('.graph')
 		.append('rect')
 		.classed('addedRect',true)
@@ -95,29 +97,43 @@ var addExtraBar = function(evaluateFunc,color){
       	.style('fill',color);
 }
 
-var mean = function(){
+var resetBars = function(){
+	d3.selectAll('.enter').style('fill'	,'lightsteelblue');
+	d3.selectAll('.update').style('fill','lightsteelblue');
+	d3.select('.graph line').remove();
 	d3.select('.addedRect').remove();
-	addExtraBar(d3.mean,'darkblue');
+} 
+
+var mean = function(){
+	resetBars();
+	d3.select('.graph')
+		.append('line')
+		.attr('x1',0)
+		.attr('y1',_yScale(d3.mean(numbers)))
+		.attr('x2',INNER_WIDTH)
+		.attr('y2',_yScale(d3.mean(numbers)))
+		.style('stroke','blue')
+
 	d3.select('.graph text').remove();
     addText('mean',d3.mean);
 }
 
 var median = function(){
-	d3.select('.addedRect').remove();
+	resetBars();
 	addExtraBar(d3.median,'deepblue');
 	d3.select('.graph text').remove();
 	addText('median',d3.median);
 }
 
 var variance = function(){
-	d3.select('.addedRect').remove();
+	resetBars();
 	addExtraBar(d3.variance,'deepblue');
 	d3.select('.graph text').remove();
 	addText('variance',d3.variance);
 }
 
 var deviation = function(){
-	d3.select('.addedRect').remove();
+	resetBars();
 	addExtraBar(d3.deviation,'deepblue');
 	d3.select('.graph text').remove();
 	addText('deviation',d3.deviation);
