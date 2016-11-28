@@ -14,7 +14,6 @@ var  loadChart = function(){
 		.attr('width',WIDTH)
 		.attr('height',HEIGHT);
 
-	var g = svg.append('g').attr('transform', 'translate(' + MARGIN + ',0)');
 
 	var x = d3.scaleLinear()
 		.domain([0,10])
@@ -31,12 +30,12 @@ var  loadChart = function(){
 	    .thresholds(x.ticks(10))
 	    
 	var bins = histogram(data);
-	console.log(bins);
 
 	var y = d3.scaleLinear()
 	    .domain([0, d3.max(bins, function(d) { return d.length; })])
 	    .range([INNER_HEIGHT, 0]);
 
+	var g = svg.append('g').attr('transform', 'translate(' + MARGIN + ',0)');
 	var bar = g.selectAll('.bar')
 	  	.data(bins)
 	  	.enter()
