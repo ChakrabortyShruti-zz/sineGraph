@@ -1,4 +1,4 @@
-var data = [0,0,1,2,2,2,3,3,4,5,6,6,7,8,9,10,11];
+var data = [0,0,0,0,0,0,0,1,2,2,2,3,3,4,5,5,5,5,5,5,6,6,7,8,9,10,11];
 
 const MARGIN = 30;
 const HEIGHT = 600;
@@ -33,9 +33,9 @@ var  loadChart = function(){
 		.append("rect")
 		.attr('x',function(d,i){return _xScale(i)})
 		.attr('y',function(d){return _yScale(d.length)})
-		.attr('width',function(d){return _xScale(d.x1 - d.x0-1)})
+		.attr('width',function(d){return ((_xScale(d.x1) - _xScale(d.x0))-1)})
 		.attr('height',function(d){return INNER_HEIGHT - _yScale(d.length)})
-		.style('fill','blueviolet');
+		.style('fill','grey');
 }
 
 

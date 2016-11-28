@@ -39,8 +39,8 @@ var createChart = function(){
 }
 
 var loadBarChart = function(data,color){
-	d3.select('.rect').remove();
-	d3.select('.addedRect').remove();
+	// d3.select('.rect').remove();
+	// d3.select('.addedRect').remove();
 
 
 	var rect = d3.select('.graph')
